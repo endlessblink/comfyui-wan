@@ -45,6 +45,10 @@ RUN pip install --no-cache-dir jupyter jupyterlab
 # Create workspace directories
 RUN mkdir -p /workspace
 
+# Add environment variables for network access
+ENV HF_ENDPOINT=https://hf-mirror.com
+ENV TRANSFORMERS_CACHE=/tmp/huggingface_cache
+
 # Expose ports
 EXPOSE 8188 8888
 

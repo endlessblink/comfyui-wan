@@ -19,7 +19,7 @@ RUN git clone https://github.com/comfyanonymous/ComfyUI.git . && git config --gl
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --no-cache-dir diffusers transformers safetensors pillow numpy opencv-python peft accelerate
+RUN pip install --no-cache-dir diffusers transformers safetensors pillow numpy opencv-python peft accelerate jupyter jupyterlab
 
 WORKDIR /app/comfyui/models/checkpoints
 
@@ -36,6 +36,10 @@ RUN wget --timeout=30 --tries=3 "https://huggingface.co/alibaba-pai/Wan2.2-Fun-R
 WORKDIR /app/comfyui
 
 EXPOSE 8188 8888
+
+# Add health check for RunPod monitoring
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5m --retries=3 \
+  CMD curl -f http://localhost:8188/ || exit 1
 
 COPY src/start_script.sh /start_script.sh
 RUN chmod +x /start_script.sh

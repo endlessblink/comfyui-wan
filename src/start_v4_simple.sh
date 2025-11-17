@@ -72,42 +72,35 @@ echo "✅ Hearmeman24 setup complete!"
 echo "⬇️ Downloading our specific Wan 2.2 Fun models..."
 
 LORA_DIR="/app/comfyui/models/loras"
-CHECKPOINT_DIR="/app/comfyui/models/checkpoints"
-mkdir -p "$LORA_DIR" "$CHECKPOINT_DIR"
+DIFFUSION_DIR="/app/comfyui/models/diffusion_models"
+mkdir -p "$LORA_DIR" "$DIFFUSION_DIR"
 
-# Download Wan 2.2 Fun A14B Models (57GB total)
-echo "⬇️ Downloading Low Noise Model (28.6GB)..."
+# Download Wan 2.2 Fun A14B Models to diffusion_models folder
+echo "⬇️ Downloading Low Noise Model to diffusion_models..."
 wget --timeout=30 --tries=3 \
   "https://huggingface.co/alibaba-pai/Wan2.2-Fun-A14B-InP/resolve/main/low_noise_model/diffusion_pytorch_model.safetensors?download=true" \
-  -O "$CHECKPOINT_DIR/wan2.2-fun-a14b-inp-low-noise.safetensors" || \
+  -O "$DIFFUSION_DIR/alibaba-pai_Wan2.2-Fun-A14B-InP-low-noise.safetensors" || \
   echo "⚠️ Low noise model download failed"
 
-echo "⬇️ Downloading High Noise Model (28.6GB)..."
+echo "⬇️ Downloading High Noise Model to diffusion_models..."
 wget --timeout=30 --tries=3 \
   "https://huggingface.co/alibaba-pai/Wan2.2-Fun-A14B-InP/resolve/main/high_noise_model/diffusion_pytorch_model.safetensors?download=true" \
-  -O "$CHECKPOINT_DIR/wan2.2-fun-a14b-inp-high-noise.safetensors" || \
+  -O "$DIFFUSION_DIR/alibaba-pai_Wan2.2-Fun-A14B-InP-high-noise.safetensors" || \
   echo "⚠️ High noise model download failed"
 
-# Download HPS2.1 LoRAs
-echo "⬇️ Downloading HPS2.1 LoRAs..."
-wget --timeout=30 --tries=3 \
-  "https://huggingface.co/alibaba-pai/Wan2.2-Fun-Reward-LoRAs/resolve/main/Wan2.2-Fun-A14B-InP-low-noise-HPS2.1.safetensors?download=true" \
-  -O "$LORA_DIR/wan2.2-fun-a14b-inp-low-noise-hps2.1.safetensors" || \
-  echo "⚠️ Low noise HPS2.1 LoRA download failed"
-
+# Download HPS2.1 LoRAs to loras folder
+echo "⬇️ Downloading HPS2.1 LoRAs to loras folder..."
 wget --timeout=30 --tries=3 \
   "https://huggingface.co/alibaba-pai/Wan2.2-Fun-Reward-LoRAs/resolve/main/Wan2.2-Fun-A14B-InP-high-noise-HPS2.1.safetensors?download=true" \
-  -O "$LORA_DIR/wan2.2-fun-a14b-inp-high-noise-hps2.1.safetensors" || \
+  -O "$LORA_DIR/Wan2.2-Fun-A14B-InP-high-noise-HPS2.1.safetensors" || \
   echo "⚠️ High noise HPS2.1 LoRA download failed"
 
-# Download CausVid LoRA
-echo "⬇️ Downloading CausVid LoRA..."
 wget --timeout=30 --tries=3 \
-  "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Wan21_CausVid_14B_T2V_lora_rank32.safetensors" \
-  -O "$LORA_DIR/Wan21_CausVid_14B_T2V_lora_rank32.safetensors" || \
-  echo "⚠️ CausVid LoRA download failed"
+  "https://huggingface.co/alibaba-pai/Wan2.2-Fun-Reward-LoRAs/resolve/main/Wan2.2-Fun-A14B-InP-low-noise-HPS2.1.safetensors?download=true" \
+  -O "$LORA_DIR/Wan2.2-Fun-A14B-Inp-low-noise-HPS2.1.safetensors" || \
+  echo "⚠️ Low noise HPS2.1 LoRA download failed"
 
-echo "✅ All specific models downloaded (57GB + LoRAs)!"
+echo "✅ All specific models downloaded to correct folders!"
 
 # Step 6: Start ComfyUI and Jupyter with our configuration
 echo "🎨 Starting ComfyUI on port 8188..."

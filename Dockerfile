@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.5.1-cudnn-devel-ubuntu22.04
+FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
@@ -42,8 +42,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Install additional essential packages
 RUN pip install --no-cache-dir jupyter jupyterlab
 
-# Create workspace directories
-RUN mkdir -p /workspace
+# Create workspace and model directories
+RUN mkdir -p /workspace /app/comfyui/models/{diffusion_models,loras,clip_vision,upscale_models,vae}
 
 # Add environment variables for network access
 ENV HF_ENDPOINT=https://hf-mirror.com

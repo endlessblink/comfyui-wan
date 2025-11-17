@@ -103,6 +103,40 @@ else
     "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Wan21_CausVid_14B_T2V_lora_rank32.safetensors" \
     -O "$LORA_DIR/Wan21_CausVid_14B_T2V_lora_rank32.safetensors" || \
     echo "⚠️ CausVid LoRA download failed"
+
+  # Download Wan 2.2 Fun A14B Models (57GB total - CRITICAL)
+  echo "⬇️ Downloading Wan 2.2 Fun A14B Inpainting Models..."
+
+  # Low Noise Model (28.6GB)
+  echo "⬇️ Downloading Low Noise Model (28.6GB)..."
+  wget --timeout=30 --tries=3 \
+    "https://huggingface.co/alibaba-pai/Wan2.2-Fun-A14B-InP/resolve/main/low_noise_model/diffusion_pytorch_model.safetensors?download=true" \
+    -O "$CHECKPOINT_DIR/wan2.2-fun-a14b-inp-low-noise.safetensors" || \
+    echo "⚠️ Low noise model download failed"
+
+  # High Noise Model (28.6GB)
+  echo "⬇️ Downloading High Noise Model (28.6GB)..."
+  wget --timeout=30 --tries=3 \
+    "https://huggingface.co/alibaba-pai/Wan2.2-Fun-A14B-InP/resolve/main/high_noise_model/diffusion_pytorch_model.safetensors?download=true" \
+    -O "$CHECKPOINT_DIR/wan2.2-fun-a14b-inp-high-noise.safetensors" || \
+    echo "⚠️ High noise model download failed"
+
+  # Download Wan 2.2 Fun HPS2.1 LoRAs
+  echo "⬇️ Downloading HPS2.1 Reward LoRAs..."
+
+  # Low Noise HPS2.1 LoRA
+  wget --timeout=30 --tries=3 \
+    "https://huggingface.co/alibaba-pai/Wan2.2-Fun-Reward-LoRAs/resolve/main/Wan2.2-Fun-A14B-InP-low-noise-HPS2.1.safetensors?download=true" \
+    -O "$LORA_DIR/wan2.2-fun-a14b-inp-low-noise-hps2.1.safetensors" || \
+    echo "⚠️ Low noise HPS2.1 LoRA download failed"
+
+  # High Noise HPS2.1 LoRA
+  wget --timeout=30 --tries=3 \
+    "https://huggingface.co/alibaba-pai/Wan2.2-Fun-Reward-LoRAs/resolve/main/Wan2.2-Fun-A14B-InP-high-noise-HPS2.1.safetensors?download=true" \
+    -O "$LORA_DIR/wan2.2-fun-a14b-inp-high-noise-hps2.1.safetensors" || \
+    echo "⚠️ High noise HPS2.1 LoRA download failed"
+
+  echo "✅ Wan 2.2 Fun models download complete (57GB + LoRAs)"
 fi
 
 echo "✅ Model downloads complete"

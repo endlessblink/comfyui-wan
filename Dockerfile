@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.5.1-cudnn-devel-ubuntu22.04
+dockerfileFROM nvidia/cuda:12.5.1-cudnn-devel-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
@@ -80,6 +80,10 @@ RUN echo "All models downloaded successfully!" && \
 WORKDIR /app/comfyui
 
 EXPOSE 8188
+EXPOSE 8888
+
+COPY src/start_script.sh /start_script.sh
+RUN chmod +x /start_script.sh
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=5 \
     CMD curl -f http://localhost:8188/ || exit 1
